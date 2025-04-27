@@ -31,16 +31,16 @@ function Calendar({value, onChange} : {value : Date, onChange : any}) {
 
     return (
         <div>
-            <div onChange = {onChange} style={{width: "400px", height:"16", border: "1px solid #e5e7eb"}}>
-                <div style={{display: "grid", gridTemplateColumns: "repeat(7, minmax(0, 1fr))", alignItems: "center", justifyContent: "center", textAlign:"center"}}>
+            <div onChange = {onChange} style={{width: "95vw", height:"80vh"}}>
+                <div style={{display: "grid", gridTemplateColumns: "repeat(7, 1fr)", alignItems: "center", justifyContent: "center", textAlign:"center"}}>
                     <Cell onClick={prevYear} style={{}}>{"<<"}</Cell>
                     <Cell onClick={prevMonth} style={{cursor: "pointer"}}>{"<"}</Cell>
-                    <Cell style={{gridColumn: "span 3"}}>{format(value, 'LLLL yyyy')}</Cell>
+                    <Cell style={{fontSize: "1.5rem", gridColumn: "span 3"}}>{format(value, 'LLLL yyyy')}</Cell>
                     <Cell onClick={nextMonth} style={{cursor: "pointer"}}>{">"}</Cell>
                     <Cell onClick={nextYear} style={{cursor: "pointer"}}>{">>"}</Cell>
 
                     {daysOfWeek.map((day) =>(
-                        <Cell key={day} style={{fontSize: "0.875rem", lineHeight: "1.5", fontWeight: "700", textTransform: "uppercase"}}>{day}</Cell>
+                        <Cell key={day} style={{fontSize: "1.25rem", lineHeight: "1.5", fontWeight: "700", textTransform: "uppercase"}}>{day}</Cell>
                     ))}
 
                     {Array.from({length: prefixDays}).map((_, index) => (
@@ -50,7 +50,7 @@ function Calendar({value, onChange} : {value : Date, onChange : any}) {
                     {Array.from({length: numDays}).map((_, index) => {
                         const date = index + 1
 
-                        return <Cell onClick={() => handleClickDate(index + 1)} key = {date} style={{cursor: "pointer"}}>{date}</Cell>
+                        return <Cell onClick={() => handleClickDate(index + 1)} key = {date} style={{fontSize: "1.25rem", cursor: "pointer"}}>{date}</Cell>
                     })}
 
                     {Array.from({length: suffixDays}).map((_, index) => (
@@ -58,9 +58,7 @@ function Calendar({value, onChange} : {value : Date, onChange : any}) {
                     ))}
                 </div>
             </div>
-            <Modal open={openModal} onClose={() => setOpenModal(false)}>
-                <h1>Selected Date: {format(value, "dd LLLL yyyy")}</h1>
-            </Modal>
+            {openModal && <Modal onClose={() => setOpenModal(false)}>Selected Date: {format(value, "dd LLLL yyyy")}</Modal>}
         </div>
     )
 }

@@ -12,7 +12,9 @@ function Cell({children, style, onClick = false} : {children?:any, style?: any, 
     }
     
     return(
-        <div onMouseEnter={() => setColor(hover)} onMouseLeave={() => setColor(main)} onClick = {onClick} style={Object.assign({height: "2.5rem", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid #e5e7eb"}, style, color)}>
+        <div onMouseEnter={() => setColor(hover)} onMouseLeave={() => setColor(main)} onClick = {onClick} 
+        style={Object.assign({height: "10vh", display: "flex", alignItems: "center", justifyContent: "center", 
+        border: "1px solid #e5e7eb"}, style, color)}>
             {children}
         </div>
     )

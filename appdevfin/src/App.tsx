@@ -11,10 +11,6 @@ function App() {
 
     return (
         <div style={{marginTop: "16", display: "flex", flexDirection: "column", alignItems: "center"}}>
-            <div>
-                <p>Selected Date: {format(currentDate, "dd LLLL yyyy")}</p>
-            </div>
-
             <Calendar value={currentDate} onChange={setCurrentDate}/>
         </div>
     )
