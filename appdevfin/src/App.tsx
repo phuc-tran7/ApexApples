@@ -1,6 +1,7 @@
 import { useState } from "react"
 import Calendar from "./calendar/Calendar"
 import { format } from "date-fns"
+import Modal from "./calendar/Modal"
 
 function App() {
     const [currentDate, setCurrentDate] = useState(new Date("2022-02-02"))
