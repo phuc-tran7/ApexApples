@@ -3,19 +3,26 @@ import Calendar from "./calendar/Calendar";
 import { format } from "date-fns";
 import Modal from "./calendar/Modal";
 import Navbar from "./components/Navbar";
+import CalendarPage from "./pages/CalendarPage";
+import SignInPage from "./pages/SignInPage";
 
 function App() {
-  const [currentDate, setCurrentDate] = useState(new Date("2022-02-02"));
-
-  const handleSetToday = () => setCurrentDate(new Date());
-  // Just add the above function as an onClick in order to return to todays date
+  let component
+  switch (window.location.pathname) {
+    case "/":
+      component = <CalendarPage></CalendarPage>
+      break;
+    case "/sign-in":
+      component = <SignInPage></SignInPage>
+      break;
+  }
 
   return (
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
       <Navbar></Navbar>
-      <Calendar value={currentDate} onChange={setCurrentDate} />
+      {component}
     </div>
   );
 }

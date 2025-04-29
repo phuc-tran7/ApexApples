@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 function Navbar() {
-  const main = { color: "white" };
-  let hover = { color: "grey" };
+  const main = { color: "white", textDecoration: "none" };
+  let hover = { color: "grey", textDecoration: "none" };
 
   const [firstColor, setFirstColor] = useState(main);
   const [secondColor, setSecondColor] = useState(main);
@@ -38,7 +38,7 @@ function Navbar() {
             onMouseEnter={() => setFirstColor(hover)}
             onMouseLeave={() => setFirstColor(main)}
             style={firstColor}
-            href="/calendar"
+            href="/"
           >
             Calendar
           </a>

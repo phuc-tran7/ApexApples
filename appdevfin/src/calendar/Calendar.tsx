@@ -27,6 +27,7 @@ function Calendar({ value, onChange }: { value: Date; onChange: any }) {
   const nextMonth = () => onChange(add(value, { months: 1 }));
   const prevYear = () => onChange(sub(value, { years: 1 }));
   const nextYear = () => onChange(add(value, { years: 1 }));
+  const handleSetToday = () => onChange(new Date())
 
   const handleClickDate = (index: number) => {
     const date = setDate(value, index);
@@ -58,7 +59,7 @@ function Calendar({ value, onChange }: { value: Date; onChange: any }) {
           <Cell onClick={prevMonth} style={{ cursor: "pointer" }}>
             {"<"}
           </Cell>
-          <Cell style={{ fontSize: "1.5rem", gridColumn: "span 3" }}>
+          <Cell onClick={handleSetToday} style={{ fontSize: "1.5rem", gridColumn: "span 3", cursor: "pointer" }}>
             {format(value, "LLLL yyyy")}
           </Cell>
           <Cell onClick={nextMonth} style={{ cursor: "pointer" }}>
