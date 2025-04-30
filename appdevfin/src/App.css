@@ -15,7 +15,7 @@
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  background-color: #f9f9f9;
+  background-color: #322a2a;
 }
 
 .add-student {
@@ -53,7 +53,7 @@
 }
 
 .attendance-table th {
-  background-color: #f2f2f2;
+  background-color: #040303;
 }
 
 .attendance-table tr:nth-child(even) {

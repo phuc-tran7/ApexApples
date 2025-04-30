@@ -24,7 +24,7 @@ app.add_middleware(
 )
 
 try:
-    uri = (
+    uri = uri = (
         f"mongodb+srv://{quote_plus(os.getenv('DB_USERNAME', ''))}:"
         f"{quote_plus(os.getenv('DB_PASSWORD', ''))}@"
         "cluster0.j3b3xbq.mongodb.net/"
