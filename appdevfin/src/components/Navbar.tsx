@@ -11,18 +11,19 @@ function Navbar() {
   return (
     <nav
       style={{
-        backgroundColor: "rgb(101, 134, 110)",
+        backgroundColor: "rgb(44, 115, 215)",
         color: "white",
         display: "flex",
         justifyContent: "space-around",
         alignItems: "center",
-        width: "200em",
+        width: "225em",
         height: "10%",
         position: "fixed",
         top: "0",
         marginBottom: "20px",
         gap: "2rem",
         padding: "0 1rem",
+
       }}
     >
       <h1>Apptendance</h1>
@@ -56,9 +57,9 @@ function Navbar() {
             style={secondColor}
             href="/sign-in"
           >
-             <div className="user-button-wrapper">
-                 <UserButton  />
-              </div>
+            <div className="user-button-wrapper" style={{ transform: "translateX(-80px)" }}>
+  <UserButton />
+</div>
           </a>
         </li>
       </ul>
