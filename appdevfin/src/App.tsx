@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+import Navbar from "./components/Navbar";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -140,8 +142,11 @@ function App() {
   }, []);
 
   return (
+  <>
+    <Navbar></Navbar>
+    <SignedIn>
     <div className="app">
-      <h1>Student Attendance System</h1>
+      <br></br><br></br><br></br><br></br><br></br>
       
       <div className="calendar-container">
         <Calendar 
@@ -150,7 +155,12 @@ function App() {
         />
       </div>
 
-      <button onClick={clearDatabase}>Clear Database</button>
+      <div>
+        <UserButton/>
+      </div>
+      <br></br>
+
+      <button id ="clearButtom" onClick={clearDatabase}>Clear Database</button>
 
       {selectedDate && (
         <div className="attendance-section">
@@ -203,6 +213,15 @@ function App() {
         </div>
       )}
     </div>
+    </SignedIn>
+
+    <SignedOut>
+        <div className="auth-message">
+          <h2>Please sign in to access the attendance system</h2>
+          <SignInButton />
+        </div>
+    </SignedOut>
+    </>
   );
 }
 
