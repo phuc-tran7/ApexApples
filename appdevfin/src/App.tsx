@@ -460,47 +460,54 @@ function App() {
       </SignedIn>
 
       <SignedOut>
-      
-        <div className="auth-message">
-          <h2>Please sign in to access the attendance system</h2>
-          <SignInButton />
+        <Navbar></Navbar><br></br><br></br><br></br>
+            <div className ="frontPageBox">
 
-          <div className="student-message-form">
-      <h3>Contact Administrators</h3>
-      <textarea
-        value={messageContent}
-        onChange={(e) => setMessageContent(e.target.value)}
-        placeholder="Your message to admins:"
-        rows={4}
-      />
-      <input
-        type="text"
-        value={senderName}
-        onChange={(e) => setSenderName(e.target.value)}
-        placeholder="Your name:"
-      />
-      <button onClick={sendMessage}>Send Message</button>
-      {messageStatus && <p className="message-status">{messageStatus}</p>}
-    </div>
-          
-          <div className="announcements-section">
-            <h2>Announcements</h2>
-            <div className="announcements-list">
-              {announcements.length === 0 ? (
-                <p className="no-announcements">No announcements yet.</p>
-              ) : (
-                announcements.map((announcement, index) => (
-                  <div key={index} className="announcement">
-                    <p className="announcement-content">{announcement.content}</p>
-                    <p className="announcement-meta">
-                      Posted by {announcement.author} on {new Date(announcement.timestamp).toLocaleString()}
-                    </p>
+            
+                  <div className="auth-message">
+
+                    <h2>Please sign in to access the attendance system</h2>
+                    <SignInButton />
+                    
+
+                    <div className="student-message-form">
+                
+                <h3>Contact Administrators</h3>
+                <textarea
+                  value={messageContent}
+                  onChange={(e) => setMessageContent(e.target.value)}
+                  placeholder="Your message to admins:"
+                  rows={4}
+                />
+                <input
+                  type="text"
+                  value={senderName}
+                  onChange={(e) => setSenderName(e.target.value)}
+                  placeholder="Your name:"
+                />
+                <button onClick={sendMessage}>Send Message</button>
+                {messageStatus && <p className="message-status">{messageStatus}</p>}
+              </div>
+                    
+                    <div className="announcements-section">
+                      <h2>Announcements</h2>
+                      <div className="announcements-list">
+                        {announcements.length === 0 ? (
+                          <p className="no-announcements">No announcements yet.</p>
+                        ) : (
+                          announcements.map((announcement, index) => (
+                            <div key={index} className="announcement">
+                              <p className="announcement-content">{announcement.content}</p>
+                              <p className="announcement-meta">
+                                Posted by {announcement.author} on {new Date(announcement.timestamp).toLocaleString()}
+                              </p>
+                            </div>
+                          ))
+                        )}
+                      </div>
+                    </div>
                   </div>
-                ))
-              )}
-            </div>
-          </div>
-        </div>
+             </div>
       </SignedOut>
     </>
   );
