@@ -16,7 +16,7 @@ function Navbar() {
         display: "flex",
         justifyContent: "space-around",
         alignItems: "center",
-        width: "100vw",
+        width: "200em",
         height: "10%",
         position: "fixed",
         top: "0",
@@ -46,7 +46,7 @@ function Navbar() {
             style={firstColor}
             href="/"
           >
-            Calendar
+            
           </a>
         </li>
         <li>
@@ -57,7 +57,7 @@ function Navbar() {
             href="/sign-in"
           >
              <div className="user-button-wrapper">
-                 <UserButton afterSignOutUrl="/" />
+                 <UserButton  />
               </div>
           </a>
         </li>

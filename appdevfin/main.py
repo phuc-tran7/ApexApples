@@ -10,9 +10,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from bson import ObjectId
 
-#IF THE BACKEND IS NOT WORKING, UPDATE YOUR MONGODB DRIVER USING pip install --upgrade pymongo IN THE CMD TERMINAL
-#
-
 load_dotenv()
 
 app = FastAPI()
@@ -37,6 +34,7 @@ try:
     client.admin.command('ping')
     db = client["attendance_db"]
     students = db["students"]
+    announcements = db["announcements"]
     print("Successfully connected to MongoDB!")
 except Exception as e:
     print(f"Database connection failed: {e}")
@@ -48,6 +46,15 @@ try:
     print("Created database indexes without student_id field")
 except Exception as e:
     print(f"Index creation failed: {e}")
+
+class StudentMessageCreate(BaseModel):
+    content: str
+    sender: str = "Anonymous"
+    contact_info: str = ""
+
+class StudentMessageResponse(StudentMessageCreate):
+    id: str
+    timestamp: datetime
 
 class StudentCreate(BaseModel):
     name: str
@@ -62,6 +69,13 @@ class StudentResponse(StudentCreate):
 
 class AttendanceUpdate(BaseModel):
     is_present: bool
+
+class AnnouncementCreate(BaseModel):
+    content: str
+    author: str
+
+class AnnouncementResponse(AnnouncementCreate):
+    timestamp: datetime
 
 @app.post("/students", response_model=StudentResponse, status_code=status.HTTP_201_CREATED)
 def create_student(student: StudentCreate):
@@ -100,7 +114,7 @@ def update_attendance(name: str, date: str, update: AttendanceUpdate = Body(...)
     """Update student attendance based on name and date"""
     try:
         result = students.update_one(
-            {"name": name, "date": date},  # Find by name and date
+            {"name": name, "date": date},
             {"$set": {"is_present": update.is_present}}
         )
         if result.matched_count == 0:
@@ -143,6 +157,46 @@ def get_students(date: str):
             detail=str(e)
         )
 
+@app.post("/announcements", response_model=AnnouncementResponse, status_code=status.HTTP_201_CREATED)
+def create_announcement(announcement: AnnouncementCreate):
+    """Create a new announcement"""
+    try:
+        announcement_dict = announcement.dict()
+        announcement_dict["timestamp"] = datetime.now()
+
+        result = announcements.insert_one(announcement_dict)
+        created_announcement = announcements.find_one({"_id": result.inserted_id})
+
+        return AnnouncementResponse(
+            content=created_announcement["content"],
+            author=created_announcement["author"],
+            timestamp=created_announcement["timestamp"]
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(e)
+        )
+
+@app.get("/announcements", response_model=List[AnnouncementResponse])
+def get_announcements():
+    """Get all announcements"""
+    try:
+        announcements_list = list(announcements.find().sort("timestamp", -1))
+        return [
+            AnnouncementResponse(
+                content=announcement["content"],
+                author=announcement["author"],
+                timestamp=announcement["timestamp"]
+            )
+            for announcement in announcements_list
+        ]
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(e)
+        )
+
 @app.get("/health")
 def health_check():
     """Check service health"""
@@ -176,3 +230,41 @@ def clear_students():
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Failed to clear database"
         )
+
+@app.delete("/announcements")
+def clear_announcements():
+    """Clear all announcements from the database"""
+    try:
+        result = db["announcements"].delete_many({})
+        if result.deleted_count == 0:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="No announcements found to delete"
+            )
+        return {"message": "All announcements have been cleared"}
+    except Exception as e:
+        print(f"Error clearing announcements: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to clear announcements"
+        )
+
+@app.post("/student-messages", response_model=StudentMessageResponse)
+async def create_message(message: StudentMessageCreate):
+    message_data = message.dict()
+    message_data["timestamp"] = datetime.now()
+    result = db.student_messages.insert_one(message_data)
+    return {**message_data, "id": str(result.inserted_id)}
+
+@app.get("/student-messages", response_model=List[StudentMessageResponse])
+async def get_messages():
+    messages = []
+    for msg in db.student_messages.find().sort("timestamp", -1):
+        msg["id"] = str(msg["_id"])
+        messages.append(msg)
+    return messages
+
+@app.delete("/student-messages/{message_id}")
+async def delete_message(message_id: str):
+    db.student_messages.delete_one({"_id": ObjectId(message_id)})
+    return {"status": "deleted"}

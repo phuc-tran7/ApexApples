@@ -178,10 +178,12 @@
 .announcement-meta {
   margin: 0;
   font-size: 0.8rem;
-  color: #666;
+  color: #131212;
 }
 
-#clear-announcements-btn{
+.clear-announcements-btn{
+  margin-left: 1em;
   border-color: black;
+  color: black !important;
 
 }
