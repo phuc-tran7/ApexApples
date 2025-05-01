@@ -13,3 +13,29 @@
     align-items: center;   
 
 }
+
+.smallGuys{
+    display: flex;
+    flex-direction: row;  /* This is default, but good to be explicit */
+    justify-content: center; 
+    align-items: center;
+    gap: 2rem;
+
+    
+    
+    }
+
+.admin-messages{
+    padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f2f2f2;
+  width: 35em;
+  height: 18em;
+
+
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+}

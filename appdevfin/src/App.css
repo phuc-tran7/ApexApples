@@ -20,12 +20,18 @@
 }
 
 .attendance-section {
-  margin-top: 30px;
+  
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  background-color: #171616;
-  width: 60em;
+  background-color: #f2f2f2;
+  width: 35em;
+  height: 18em;
+
+
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   
 }
 
@@ -55,10 +61,14 @@
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 4px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1) !important;
 }
 
 .attendance-table th, .attendance-table td {
-  border: 1px solid #ddd;
+  /* border: 1px solid #ddd; */
   padding: 12px;
   text-align: left;
 }
@@ -82,9 +92,9 @@
   height: 30em;
   
   border: 1px solid #1b1111;
-  background-color: rgb(38, 72, 47) !important;
+  background-color: rgb(127, 148, 124) !important;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: 1em 4em 10em rgba(0,0,0,0.1);
 }
 
 .react-calendar__tile {
@@ -97,7 +107,7 @@
   height: 2em;
   font-size: 1.5em !important;
   font-weight: bold;
-  background-color: rgb(94, 120, 101);
+  background-color: rgb(101, 134, 110);
   border-bottom: 1px solid #ddd;
 
 }
@@ -111,6 +121,7 @@
 .clearButton{
   font-family: 'Inter', sans-serif;
   font-size: 1.1em;
+  border-color: black;
 
 
 }
@@ -119,5 +130,58 @@
   font-family: 'Inter', sans-serif;
   font-size: 3em;
 
+
+}
+
+
+.announcements-section {
+  margin: 2rem auto;
+  max-width: 800px;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+}
+
+.post-announcement {
+  margin-bottom: 1.5rem;
+}
+
+.post-announcement textarea {
+  width: 90%;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+.announcements-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* .announcement {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+} */
+
+.announcement-content {
+  margin: 0 0 0.5rem 0;
+  white-space: pre-wrap;
+}
+
+.announcement-meta {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+#clear-announcements-btn{
+  border-color: black;
 
 }

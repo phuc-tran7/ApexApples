@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from "@clerk/clerk-react";
 
 function Navbar() {
   const main = { color: "white", textDecoration: "none" };
@@ -10,7 +11,7 @@ function Navbar() {
   return (
     <nav
       style={{
-        backgroundColor: "#333",
+        backgroundColor: "rgb(101, 134, 110)",
         color: "white",
         display: "flex",
         justifyContent: "space-around",
@@ -55,7 +56,9 @@ function Navbar() {
             style={secondColor}
             href="/sign-in"
           >
-            Sign In
+             <div className="user-button-wrapper">
+                 <UserButton afterSignOutUrl="/" />
+              </div>
           </a>
         </li>
       </ul>
